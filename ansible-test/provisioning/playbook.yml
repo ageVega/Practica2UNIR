@@ -1,0 +1,13 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    #- name: Make sure we can connect to the machine
+    #  ping:
+    - name: Install required packages
+      apt:
+        state: present
+        update_cache: yes
+        name:
+          - vim
+          - git

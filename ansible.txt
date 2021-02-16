@@ -1,0 +1,35 @@
+
+//Instala Ansible 
+$ sudo apt install ansible
+
+//Instala Vagrant 
+$ sudo apt install vagrant
+
+//Crear entorno de pruebas
+$ mkdir ansible-test && cd ansible-test
+
+$ vagrant init ubuntu/bionic64
+$ vagrant up
+
+$ vagrant status
+$ vagrant ssh
+
+$ vagrant destroy
+
+//Modificar Vagrantfile para usar 1024 MB de memoria y ejecutar Ansible en la VM
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "1024"
+  end
+  
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "provisioning/playbook.yml"
+    ansible.extra_vars = {
+        ansible_python_interpreter: "/usr/bin/python3",
+    }
+  end
+
+//Creamos el playbook
+$ mkdir provisioning && cd provisioning && touch playbook.yml
+
+
