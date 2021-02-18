@@ -1,0 +1,5 @@
+
+//Intalar terraform
+$ sudo snap install terraform --candidate
+
+//

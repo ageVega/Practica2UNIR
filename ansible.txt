@@ -32,4 +32,20 @@ $ vagrant destroy
 //Creamos el playbook
 $ mkdir provisioning && cd provisioning && touch playbook.yml
 
+//Habilitamos vagrant como una maquina remota con su propia IP (Vagrantfile)
+  config.vm.network "private_network", ip: "192.168.33.10"
+
+//Hacemos ping a las maquinas de nuestro inventario
+$ ansible all -i hosts/inventory.ini -m ping
+$ ansible virtualmachine -i hosts/inventory.ini -m ping
+
+//Ejecutamos el playbook en nuestra maquina 'remota'
+$ ansible-playbook provisioning/playbook.yml -i hosts/inventory.ini 
+
+
+---Non tested
+
+$ ssh-copy-id -i .ssh/id_rsa.pub ansible@nodo1
+
+
 
