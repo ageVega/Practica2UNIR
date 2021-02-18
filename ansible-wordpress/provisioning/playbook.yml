@@ -1,0 +1,43 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: Install PHP
+      apt:
+        state: present
+        update_cache: yes
+        name:
+          - php
+          - php-fpm
+          - php-mysql
+          - php-xml
+    - name: Remove apache2
+      apt:
+        state: absent
+        name:
+          - apache2
+    - name: Install MySQL
+      apt:
+        state: present
+        update_cache: yes
+        name:
+          - mysql-server
+          - python-mysqldb
+    
+    - name: Generate new root password
+      command: openssl rand -hex 7
+      register: mysql_new_root_pass
+    - name: Remove anonymous users
+      mysql_user: name="" state=absent
+    - name: Remove test database
+      mysql_db: name=test state=absent
+    - name: Update root password
+      mysql_user: name=root host={{item}} password={{mysql_new_root_pass.stdout}}
+      loop: 
+        - "{{ansible_hostname}}"
+        - 127.0.0.1
+        - ::1
+        - localhost
+    - name: Output new root password
+      debug: msg="New root password is {{mysql_new_root_pass.stdout}}"
+
