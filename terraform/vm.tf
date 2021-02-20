@@ -8,16 +8,20 @@ resource "azurerm_linux_virtual_machine" "myVM1" {
   network_interface_ids           = [ azurerm_network_interface.myNic1.id ]
   disable_password_authentication = true
   
+  # Especificamos la clave publica para el usuario administrador
+  # Utilizaremos el usuario y la clave privada asociada a la publica para acceder a la VM
   admin_ssh_key {
     username   = "admin"
     public_key = file("~/.ssh/id_rsa.pub")
   }
-
+  
+  # Definimos tipo de disco y la replicacion
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
   }
 
+  # Datos de la imagen a utilizar
   plan {
     name      = "ubuntu-18-04-lts"
     product   = "ubuntu-1804-lts"
@@ -32,7 +36,8 @@ resource "azurerm_linux_virtual_machine" "myVM1" {
     sku       = "ubuntu-18-04-lts"
     version   = "1.2019.0710"
   }
-
+  
+  # Storage account para almacenar la informacion de troubleshooting
   boot_diagnostics {
     storage_account_uri = azurerm_storage_account.stAccount.primary_blob_endpoint
   }
