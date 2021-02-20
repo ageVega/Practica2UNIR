@@ -12,3 +12,7 @@ variable "secret_key" {}
 variable "region" {
   default = "us-east-1"
 }
+
+variable "myip" {
+  description = "A continuación indicar la IP desde donde se va a conectar al servidor web y la instancia ec2"
+}
