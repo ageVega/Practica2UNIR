@@ -37,7 +37,7 @@ resource "azurerm_network_interface" "myNic1" {
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   
-  ip_configuration = {
+  ip_configuration {
     name                          = "myipconfiguration1"
     subnet_id                     = azurerm_subnet.mySubnet.id
     private_ip_address_allocation = "Static"
