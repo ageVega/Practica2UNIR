@@ -2,4 +2,10 @@
 //Intalar terraform
 $ sudo snap install terraform --candidate
 
-//
+//Comandos basicos
+$ terraform plan
+$ terraform apply
+$ terraform show
+
+//Destruir la infraestructura
+$ terraform destroy
