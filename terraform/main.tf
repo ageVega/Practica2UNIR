@@ -29,7 +29,7 @@ resource "azurerm_resource_group" "rg" {
 
 # Creamos una storage account
 resource "azurerm_storage_account" "stAccount" {
-  name                     = "vega-staccount-01"
+  name                     = "vegastaccount01"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
   account_tier             = "Standard"
