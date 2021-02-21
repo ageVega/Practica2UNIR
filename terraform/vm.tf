@@ -4,14 +4,14 @@ resource "azurerm_linux_virtual_machine" "myVM1" {
   resource_group_name             = azurerm_resource_group.rg.name
   location                        = azurerm_resource_group.rg.location
   size                            = var.vm_size
-  admin_username                  = "admin"
+  admin_username                  = "ansible"
   network_interface_ids           = [ azurerm_network_interface.myNic1.id ]
   disable_password_authentication = true
   
   # Especificamos la clave publica para el usuario administrador
   # Utilizaremos el usuario y la clave privada asociada a la publica para acceder a la VM
   admin_ssh_key {
-    username   = "admin"
+    username   = "ansible"
     public_key = file("~/.ssh/id_rsa.pub")
   }
   
