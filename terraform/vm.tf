@@ -23,18 +23,19 @@ resource "azurerm_linux_virtual_machine" "myVM1" {
 
   # Datos de la imagen a utilizar
   plan {
-    name      = "ubuntu-18-04-lts"
-    product   = "ubuntu-1804-lts"
-    publisher = "cognosys"
+    name      = "18.04-LTS"
+    product   = "UbuntuServer"
+    publisher = "Canonical"
   }
 
   # La imagen tiene la sintaxis de publisher:offer:sku:version
   # cognosys:ubuntu-1804-lts:ubuntu-18-04-lts:1.2019.0710
+  # Canonical:UbuntuServer:18.04-LTS:18.04.201804262
   source_image_reference {
-    publisher = "cognosys"
-    offer     = "ubuntu-1804-lts"
-    sku       = "ubuntu-18-04-lts"
-    version   = "1.2019.0710"
+    publisher = "Canonical"
+    offer     = "UbuntuServer"
+    sku       = "18.04-LTS"
+    version   = "18.04.201804262"
   }
   
   # Storage account para almacenar la informacion de troubleshooting
