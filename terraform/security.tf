@@ -49,7 +49,7 @@ resource "azurerm_network_security_group" "mySecGroupMaster" {
   }
 }
 # Vinculamos el security group a la interfaz de red
-resource "azurerm_network_interface_security_group_association" "mySecGroupAssociation1" {
+resource "azurerm_network_interface_security_group_association" "mySecGroupAssociationMaster" {
   network_interface_id      = azurerm_network_interface.myNicMaster.id
   network_security_group_id = azurerm_network_security_group.mySecGroupMaster.id
 }
@@ -77,7 +77,7 @@ resource "azurerm_network_security_group" "mySecGroupWorker01" {
   }
 }
 # Vinculamos el security group a la interfaz de red
-resource "azurerm_network_interface_security_group_association" "mySecGroupAssociation1" {
+resource "azurerm_network_interface_security_group_association" "mySecGroupAssociationWorker01" {
   network_interface_id      = azurerm_network_interface.myNicWorker01.id
   network_security_group_id = azurerm_network_security_group.mySecGroupWorker01.id
 }
@@ -105,7 +105,7 @@ resource "azurerm_network_security_group" "mySecGroupWorker02" {
   }
 }
 # Vinculamos el security group a la interfaz de red
-resource "azurerm_network_interface_security_group_association" "mySecGroupAssociation1" {
+resource "azurerm_network_interface_security_group_association" "mySecGroupAssociationWorker02" {
   network_interface_id      = azurerm_network_interface.myNicWorker02.id
   network_security_group_id = azurerm_network_security_group.mySecGroupWorker02.id
 }
@@ -133,7 +133,7 @@ resource "azurerm_network_security_group" "mySecGroupNFS" {
   }
 }
 # Vinculamos el security group a la interfaz de red
-resource "azurerm_network_interface_security_group_association" "mySecGroupAssociation1" {
+resource "azurerm_network_interface_security_group_association" "mySecGroupAssociationNFS" {
   network_interface_id      = azurerm_network_interface.myNicNFS.id
   network_security_group_id = azurerm_network_security_group.mySecGroupNFS.id
 }
