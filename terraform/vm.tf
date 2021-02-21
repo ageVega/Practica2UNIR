@@ -23,21 +23,20 @@ resource "azurerm_linux_virtual_machine" "myVM1" {
 
   # Datos de la imagen a utilizar
   plan {
-    name      = "18.04-LTS"
-    product   = "UbuntuServer"
-    publisher = "Canonical"
+    name      = "hardened-ubuntu-18-04-lts-freesku"
+    product   = "ubuntu-18-04-lts-free"
+    publisher = "cognosys"
   }
 
   # La imagen tiene la sintaxis de publisher:offer:sku:version
-  # cognosys:ubuntu-1804-lts:ubuntu-18-04-lts:1.2019.0710
-  # Canonical:UbuntuServer:18.04-LTS:18.04.201804262
+  # cognosys:ubuntu-18-04-lts-free:hardened-ubuntu-18-04-lts-freesku:1.2019.0710
   source_image_reference {
-    publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "18.04-LTS"
-    version   = "18.04.201804262"
+    publisher = "cognosys"
+    offer     = "ubuntu-18-04-lts-free"
+    sku       = "hardened-ubuntu-18-04-lts-freesku"
+    version   = "1.2019.0710"
   }
-  
+
   # Storage account para almacenar la informacion de troubleshooting
   boot_diagnostics {
     storage_account_uri = azurerm_storage_account.stAccount.primary_blob_endpoint
