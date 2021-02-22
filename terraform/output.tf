@@ -1,6 +1,3 @@
-output "ipVM" {
-    value = azurerm_public_ip.myPublicIp1.ip_address
-}
 output "ipMaster" {
     value = azurerm_public_ip.myPublicIpMaster.ip_address
 }
