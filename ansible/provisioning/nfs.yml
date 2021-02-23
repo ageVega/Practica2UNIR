@@ -2,5 +2,34 @@
 - hosts: nfs
   become: true
   tasks:
-    - name: Make sure we can connect to the machine
-      ping:
+    - name: Install net-tools & firewalld
+      apt:
+        state: present
+        update_cache: yes
+        name:
+          - net-tools
+          - firewalld
+    - name: Activar nfs-server
+      service:
+        name: nfs-server
+        state: started
+    - name: Activar firewalld
+      service:
+        name: firewalld
+        state: started
+    - name: firewall-cmd 01
+      shell: 'firewall-cmd --permanent --add-service=nfs'
+      args:
+        chdir: /home/ansible
+    - name: firewall-cmd 02
+      shell: 'firewall-cmd --permanent --add-service=rpc-bind'
+      args:
+        chdir: /home/ansible
+    - name: firewall-cmd 03
+      shell: 'firewall-cmd --permanent --add-service=mountd'
+      args:
+        chdir: /home/ansible
+    - name: firewall-cmd 04
+      shell: 'firewall-cmd --reload'
+      args:
+        chdir: /home/ansible
