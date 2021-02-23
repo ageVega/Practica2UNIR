@@ -45,6 +45,13 @@
       service:
         name: chrony
         state: started
+    - name: Cargar /etc/hosts en MV
+      copy:
+        src: ../files/hosts
+        dest: /etc/hosts
+        owner: root
+        group: root
+        mode: '0644'
 
 #Ejecutar como primer playbook con
 #$ ansible-playbook commontasks.yml -i hosts/inventory.ini
