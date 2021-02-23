@@ -1,6 +1,9 @@
 ---
-- hosts: all
+- name: Tareas comunes a todas las maquinas
+  hosts: all
   become: true
   tasks:
-    - name: Make sure we can connect to the machine
-      ping: 
+    - name: Test comand one
+      shell: 'touch hola'
+      args:
+        chdir: /home/ansible
