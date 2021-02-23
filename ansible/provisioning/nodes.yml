@@ -1,0 +1,16 @@
+---
+- hosts: nodes
+  become: true
+  tasks:
+    - name: transparent masquerading 1
+      shell: 'modprobe br_netfilter'
+      args:
+        chdir: /home/ansible
+    - name: transparent masquerading 2
+      shell: 'firewall-cmd --add-masquerade --permanent'
+      args:
+        chdir: /home/ansible
+    - name: transparent masquerading 3
+      shell: 'firewall-cmd --reload'
+      args:
+        chdir: /home/ansible
