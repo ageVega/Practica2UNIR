@@ -1,0 +1,6 @@
+---
+- hosts: nfs
+  become: true
+  tasks:
+    - name: Make sure we can connect to the machine
+      ping:

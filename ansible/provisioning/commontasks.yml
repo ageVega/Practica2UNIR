@@ -1,0 +1,48 @@
+---
+- name: Tareas comunes a todas las maquinas
+  hosts: all
+  become: true
+  tasks:
+    - name: Update system
+      shell: 'apt update -y'
+      args:
+        chdir: /home/ansible
+    - name: Set Time to Europe/Madrid-1
+      shell: 'timedatectl set-timezone Europe/Madrid'
+      args:
+        chdir: /home/ansible
+    - name: Set Time to Europe/Madrid-2
+      shell: 'timedatectl set-ntp true'
+      args:
+        chdir: /home/ansible
+    - name: Install required packages-1
+      apt:
+        state: present
+        update_cache: yes
+        name:
+          - nfs-common
+    - name: Install required packages-2
+      apt:
+        state: present
+        update_cache: yes
+        name:
+          - nfs4-acl-tools
+    - name: Install required packages-3
+      apt:
+        state: present
+        update_cache: yes
+        name:
+          - wget
+    - name: Install required packages-4
+      apt:
+        state: present
+        update_cache: yes
+        name:
+          - chrony
+    - name: Activar chrony
+      service:
+        name: chrony
+        state: started
+
+#Ejecutar como primer playbook con
+#$ ansible-playbook commontasks.yml -i hosts/inventory.ini
