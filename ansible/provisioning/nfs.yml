@@ -2,13 +2,6 @@
 - hosts: nfs
   become: true
   tasks:
-    - name: Install net-tools & firewalld
-      apt:
-        state: present
-        update_cache: yes
-        name:
-          - net-tools
-          - firewalld
     - name: Activar nfs-server
       service:
         name: nfs-server

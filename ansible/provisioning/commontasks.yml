@@ -20,12 +20,13 @@
         state: present
         update_cache: yes
         name:
-          - nfs-common
+          - net-tools
     - name: Install required packages-2
       apt:
         state: present
         update_cache: yes
         name:
+          - nfs-common
           - nfs4-acl-tools
     - name: Install required packages-3
       apt:
@@ -33,12 +34,13 @@
         update_cache: yes
         name:
           - wget
+          - chrony
     - name: Install required packages-4
       apt:
         state: present
         update_cache: yes
         name:
-          - chrony
+          - firewalld
     - name: Activar chrony
       service:
         name: chrony
