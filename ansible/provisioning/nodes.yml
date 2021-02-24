@@ -106,3 +106,39 @@
         name: kubectl
         state: present
         force: yes        
+
+    - name: master firewall 1
+      shell: 'firewall-cmd --permanent --add-port=6443/tcp'
+      args:
+        chdir: /home/ansible
+      
+    - name: master firewall 2
+      shell: 'firewall-cmd --permanent --add-port=2379-2380/tcp'
+      args:
+        chdir: /home/ansible
+      
+    - name: master firewall 3
+      shell: 'firewall-cmd --permanent --add-port=10250/tcp'
+      args:
+        chdir: /home/ansible
+      
+    - name: master firewall 4
+      shell: 'firewall-cmd --permanent --add-port=10251/tcp'
+      args:
+        chdir: /home/ansible
+      
+    - name: master firewall 5
+      shell: 'firewall-cmd --permanent --add-port=10252/tcp'
+      args:
+        chdir: /home/ansible
+      
+    - name: master firewall 6
+      shell: 'firewall-cmd --permanent --add-port=10255/tcp'
+      args:
+        chdir: /home/ansible
+      
+    - name: master firewall 7
+      shell: 'firewall-cmd --reload'
+      args:
+        chdir: /home/ansible
+      
