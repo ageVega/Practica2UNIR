@@ -44,6 +44,7 @@
 
     - name: install docker 2
       shell: 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -'
+      warn: false
       args:
         chdir: /home/ansible
 
