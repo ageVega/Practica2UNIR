@@ -31,58 +31,36 @@
       shell: 'sysctl --system'
       args:
         chdir: /home/ansible
-    
-    - name: install docker 1
+    - name: installa dipendenze
       apt:
+        name: "{{item}}"
         state: present
         update_cache: yes
-        name:
-          - apt-transport-https
-          - ca-certificates
-          - curl
-          - software-properties-common
-
-    - name: install docker 2
-      shell: 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -'
-      args:
-        warn: false # set warn=false to prevent warning
-        chdir: /home/ansible
-
-    - name: install docker 3
-      shell: 'add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"'
-      args:
-        chdir: /home/ansible
-
-    - name: install docker 4
-      shell: 'apt update'
-      args:
-        chdir: /home/ansible
-
-    - name: install docker 5
-      get_url:
-        url: https://download.docker.com/linux/ubuntu/dists/bionic/pool/edge/amd64/containerd.io_1.2.2-3_amd64.deb
-        dest: /home/ansible/containerd.io_1.2.2-3_amd64.deb
-        mode: '0744'
-
-    - name: install docker 6
-      shell: 'apt install ./containerd.io_1.2.2-3_amd64.deb'
-      args:
-        chdir: /home/ansible
-
-    - name: install docker 7
-      shell: 'rm ./containerd.io_1.2.2-3_amd64.deb'
-      args:
-        warn: false
-        chdir: /home/ansible
-
-    - name: install docker 8
-      apt:
+      loop:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - gnupg-agent
+        - software-properties-common
+    - name: aggiungi chiave GPG
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
         state: present
+    - name: aggiungi repository docker
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu bionic stable
+        state: present
+    - name: installa docker
+      apt:
+        name: "{{item}}"
+        state: latest
         update_cache: yes
-        name:
-          - docker-ce
-
-    - name: install docker 9
-      shell: 'usermod -aG docker ansible'
-      args:
-        chdir: /home/ansible
+      loop:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+    - name: assicurati che docker sia attivo
+      service:
+        name: docker
+        state: started
+        enabled: yes
