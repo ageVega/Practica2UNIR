@@ -72,8 +72,9 @@
     - name: install docker 7
       shell: 'rm ./containerd.io_1.2.2-3_amd64.deb'
       args:
+        warn: false
         chdir: /home/ansible
-        
+
     - name: install docker 8
       apt:
         state: present
