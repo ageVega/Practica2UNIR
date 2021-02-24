@@ -87,6 +87,12 @@
         state: present
         update_cache: true
 
+    - name: activate kubelet
+      service:
+        name: kubelet
+        state: started
+        enabled: yes
+
     - name: install kubeadm
       apt:
         name: kubeadm
