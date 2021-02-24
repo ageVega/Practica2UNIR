@@ -70,11 +70,18 @@
         chdir: /home/ansible
 
     - name: install docker 7
-      shell: 'apt install docker-ce'
+      shell: 'rm ./containerd.io_1.2.2-3_amd64.deb'
       args:
         chdir: /home/ansible
-
+        
     - name: install docker 8
+      apt:
+        state: present
+        update_cache: yes
+        name:
+          - docker-ce
+
+    - name: install docker 9
       shell: 'usermod -aG docker ansible'
       args:
         chdir: /home/ansible
