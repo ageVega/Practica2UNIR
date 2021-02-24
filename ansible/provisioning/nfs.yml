@@ -2,6 +2,12 @@
 - hosts: nfs
   become: true
   tasks:
+    - name: install nfs-kernel
+      apt:
+        state: present
+        update_cache: yes
+        name:
+          - nfs-kernel-server
     - name: Activar nfs-server
       service:
         name: nfs-server
