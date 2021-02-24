@@ -141,4 +141,26 @@
       shell: 'firewall-cmd --reload'
       args:
         chdir: /home/ansible
+
+    - name: configurar kubeadm
+      shell: 'kubeadm config images pull'
+      args:
+        chdir: /home/ansible
+
+    - name: Permitir acceso desde worker1
+      shell: "firewall-cmd --permanent --add-rich-rule 'rule family=ipv4 source address=10.0.1.11/32 accept"
+      args:
+        chdir: /home/ansible
+
+    - name: Permitir acceso desde worker2
+      shell: "firewall-cmd --permanent --add-rich-rule 'rule family=ipv4 source address=10.0.1.12/32 accept"
+      args:
+        chdir: /home/ansible
+        
+    - name: master firewall 8
+      shell: 'firewall-cmd --reload'
+      args:
+        chdir: /home/ansible
+
+        
       
