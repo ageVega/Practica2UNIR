@@ -59,9 +59,10 @@
         chdir: /home/ansible
 
     - name: install docker 5
-      shell: 'curl -O https://download.docker.com/linux/ubuntu/dists/bionic/pool/edge/amd64/containerd.io_1.2.2-3_amd64.deb'
-      args:
-        chdir: /home/ansible
+      get_url:
+        url: https://download.docker.com/linux/ubuntu/dists/bionic/pool/edge/amd64/containerd.io_1.2.2-3_amd64.deb
+        dest: /home/ansible/containerd.io_1.2.2-3_amd64.deb
+        mode: '0744'
 
     - name: install docker 6
       shell: 'apt install ./containerd.io_1.2.2-3_amd64.deb'
