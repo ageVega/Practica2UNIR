@@ -31,7 +31,8 @@
       shell: 'sysctl --system'
       args:
         chdir: /home/ansible
-    - name: installa dipendenze
+
+    - name: install dependences
       apt:
         name: "{{item}}"
         state: present
@@ -42,15 +43,18 @@
         - curl
         - gnupg-agent
         - software-properties-common
-    - name: aggiungi chiave GPG
+
+    - name: key GPG
       apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
         state: present
-    - name: aggiungi repository docker
+
+    - name: docker repository
       apt_repository:
         repo: deb https://download.docker.com/linux/ubuntu bionic stable
         state: present
-    - name: installa docker
+
+    - name: install docker
       apt:
         name: "{{item}}"
         state: latest
@@ -59,7 +63,8 @@
         - docker-ce
         - docker-ce-cli
         - containerd.io
-    - name: assicurati che docker sia attivo
+        
+    - name: activate docker
       service:
         name: docker
         state: started
