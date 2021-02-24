@@ -161,6 +161,16 @@
       shell: 'firewall-cmd --reload'
       args:
         chdir: /home/ansible
+        
+    - name: master firewall 9
+      shell: "firewall-cmd --zone=public --permanent --add-rich-rule 'rule family=ipv4 source address=172.17.0.0/16 accept'"
+      args:
+        chdir: /home/ansible
+        
+    - name: master firewall 10
+      shell: 'firewall-cmd --reload'
+      args:
+        chdir: /home/ansible
 
         
       
