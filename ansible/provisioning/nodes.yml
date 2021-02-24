@@ -6,14 +6,17 @@
       shell: 'modprobe br_netfilter'
       args:
         chdir: /home/ansible
+
     - name: transparent masquerading 2
       shell: 'firewall-cmd --add-masquerade --permanent'
       args:
         chdir: /home/ansible
+
     - name: transparent masquerading 3
       shell: 'firewall-cmd --reload'
       args:
         chdir: /home/ansible
+        
     - name: traficc through firewall 1
       shell:
         cmd: |
@@ -23,10 +26,53 @@
           EOF
       args:
         executable: /bin/bash
+
     - name: traficc through firewall 2
       shell: 'sysctl --system'
       args:
         chdir: /home/ansible
+    
+    - name: install docker 1
+      apt:
+        state: present
+        update_cache: yes
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+          
+    - name: install docker 2
+      shell: 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -'
+      args:
+        chdir: /home/ansible
 
+    - name: install docker 3
+      shell: 'sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"'
+      args:
+        chdir: /home/ansible
 
-        
+    - name: install docker 4
+      shell: 'apt update'
+      args:
+        chdir: /home/ansible
+
+    - name: install docker 5
+      shell: 'curl -O https://download.docker.com/linux/ubuntu/dists/bionic/pool/edge/amd64/containerd.io_1.2.2-3_amd64.deb'
+      args:
+        chdir: /home/ansible
+
+    - name: install docker 6
+      shell: 'apt install -y ./containerd.io_1.2.2-3_amd64.deb'
+      args:
+        chdir: /home/ansible
+
+    - name: install docker 7
+      shell: 'apt install -y docker-ce'
+      args:
+        chdir: /home/ansible
+
+    - name: install docker 8
+      shell: 'usermod -aG docker ansible'
+      args:
+        chdir: /home/ansible
