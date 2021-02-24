@@ -41,14 +41,14 @@
           - ca-certificates
           - curl
           - software-properties-common
-          
+
     - name: install docker 2
-      shell: 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -'
+      shell: 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -'
       args:
         chdir: /home/ansible
 
     - name: install docker 3
-      shell: 'sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"'
+      shell: 'add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"'
       args:
         chdir: /home/ansible
 
@@ -63,12 +63,12 @@
         chdir: /home/ansible
 
     - name: install docker 6
-      shell: 'apt install -y ./containerd.io_1.2.2-3_amd64.deb'
+      shell: 'apt install ./containerd.io_1.2.2-3_amd64.deb'
       args:
         chdir: /home/ansible
 
     - name: install docker 7
-      shell: 'apt install -y docker-ce'
+      shell: 'apt install docker-ce'
       args:
         chdir: /home/ansible
 
