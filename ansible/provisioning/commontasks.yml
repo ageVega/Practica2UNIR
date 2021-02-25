@@ -52,6 +52,10 @@
         owner: root
         group: root
         mode: '0644'
+    - name: Creates directory /srv/nfs
+      file:
+        path: /srv/nfs
+        state: directory
 
 #Ejecutar como primer playbook con
 #$ ansible-playbook commontasks.yml -i hosts/inventory.ini

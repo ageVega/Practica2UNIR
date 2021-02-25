@@ -2,10 +2,6 @@
 - hosts: nfs
   become: true
   tasks:
-    - name: Creates directory /srv/nfs
-      file:
-        path: /srv/nfs
-        state: directory
     - name: install nfs-kernel
       apt:
         state: present
@@ -16,6 +12,11 @@
       service:
         name: nfs-server
         state: started
+        
+    - name: permissions in shared folder
+      shell: 'chmod 777 /srv/nfs'
+      args:
+        chdir: /home/ansible
 
     - name: Upload /etc/exports to nfs
       copy:
@@ -51,5 +52,13 @@
         chdir: /home/ansible
     - name: firewall-cmd 04
       shell: 'firewall-cmd --reload'
+      args:
+        chdir: /home/ansible
+
+- hosts: nodes
+  become: yes
+  tasks:
+    - name: mount shared directory
+      shell: 'mount 10.0.1.15:/srv/nfs /srv/nfs'
       args:
         chdir: /home/ansible
