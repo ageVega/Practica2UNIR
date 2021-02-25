@@ -2,10 +2,10 @@
 - hosts: nfs
   become: true
   tasks:
-    - name: Create /srv/nfs
-      shell: 'mkdir -p /srv/nfs'
-      args:
-        chdir: /home/ansible
+    - name: Creates directory /srv/nfs
+      file:
+        path: /srv/nfs
+        state: directory
     - name: install nfs-kernel
       apt:
         state: present
