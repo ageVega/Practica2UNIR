@@ -2,6 +2,10 @@
 - hosts: nfs
   become: true
   tasks:
+    - name: Create /srv/nfs
+      shell: 'mkdir -p /srv/nfs'
+      args:
+        chdir: /home/ansible
     - name: install nfs-kernel
       apt:
         state: present
@@ -12,6 +16,23 @@
       service:
         name: nfs-server
         state: started
+
+    - name: Upload /etc/exports to nfs
+      copy:
+        src: ../files/exports
+        dest: /etc/exports
+        owner: root
+        group: root
+        mode: '0644'
+    - name: exportfs 1
+      shell: 'exportfs -r'
+      args:
+        chdir: /home/ansible
+    - name: exportfs 2
+      shell: 'exportfs -s'
+      args:
+        chdir: /home/ansible
+
     - name: Activar firewalld
       service:
         name: firewalld

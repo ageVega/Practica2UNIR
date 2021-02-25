@@ -45,7 +45,7 @@
       service:
         name: chrony
         state: started
-    - name: Cargar /etc/hosts en MV
+    - name: Upload /etc/hosts to MV
       copy:
         src: ../files/hosts
         dest: /etc/hosts
