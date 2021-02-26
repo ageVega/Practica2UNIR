@@ -42,30 +42,6 @@ resource "azurerm_public_ip" "myPublicIpWorker01" {
     environment = "CP2"
   }
 }
-# IP publica Worker02
-resource "azurerm_public_ip" "myPublicIpWorker02" {
-  name                = "vmipworker02"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
-  allocation_method   = "Dynamic"
-  sku                 = "Basic"
-
-  tags = {
-    environment = "CP2"
-  }
-}
-# IP publica NFS
-resource "azurerm_public_ip" "myPublicIpNFS" {
-  name                = "vmipnfs"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
-  allocation_method   = "Dynamic"
-  sku                 = "Basic"
-
-  tags = {
-    environment = "CP2"
-  }
-}
 
 # Creacion de NIC Master
 resource "azurerm_network_interface" "myNicMaster" {
@@ -97,42 +73,6 @@ resource "azurerm_network_interface" "myNicWorker01" {
     private_ip_address_allocation = "Static"
     private_ip_address            = "10.0.1.11"
     public_ip_address_id          = azurerm_public_ip.myPublicIpWorker01.id
-  }
-
-  tags = {
-    environment = "CP2"
-  }
-}
-# Creacion de NIC Worker02
-resource "azurerm_network_interface" "myNicWorker02" {
-  name                = "vmnicworker02"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
-  
-  ip_configuration {
-    name                          = "myipconfigurationworker02"
-    subnet_id                     = azurerm_subnet.mySubnet.id
-    private_ip_address_allocation = "Static"
-    private_ip_address            = "10.0.1.12"
-    public_ip_address_id          = azurerm_public_ip.myPublicIpWorker02.id
-  }
-
-  tags = {
-    environment = "CP2"
-  }
-}
-# Creacion de NIC NFS
-resource "azurerm_network_interface" "myNicNFS" {
-  name                = "vmnicnfs"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
-  
-  ip_configuration {
-    name                          = "myipconfigurationnfs"
-    subnet_id                     = azurerm_subnet.mySubnet.id
-    private_ip_address_allocation = "Static"
-    private_ip_address            = "10.0.1.15"
-    public_ip_address_id          = azurerm_public_ip.myPublicIpNFS.id
   }
 
   tags = {

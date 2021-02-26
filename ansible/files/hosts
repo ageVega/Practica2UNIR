@@ -1,8 +1,8 @@
 127.0.0.1 localhost
 10.0.1.10 master master.acme.es
 10.0.1.11 worker01 worker01.acme.es
-10.0.1.12 worker02 worker02.acme.es5
-10.0.1.15 nfs nfs.acme.es
+#10.0.1.12 worker02 worker02.acme.es
+#10.0.1.15 nfs nfs.acme.es
 
 # The following lines are desirable for IPv6 capable hosts
 ::1 ip6-localhost ip6-loopback
