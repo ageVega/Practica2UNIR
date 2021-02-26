@@ -7,9 +7,9 @@ variable "location" {
 variable "vm_size" {
   type = string
   description = "Tamaño de la maquina virtual"
-  default = "Standard_D1_v2" # 3.5 GB, 1 CPU
+  default = "Standard_B2ms" 
 }
-#  {
+#  { # 3.5 GB, 1 CPU
 #    "maxDataDiskCount": 4,
 #    "memoryInMb": 3584,
 #    "name": "Standard_D1_v2",
