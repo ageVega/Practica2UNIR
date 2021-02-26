@@ -171,7 +171,7 @@
       command: "kubeadm init --pod-network-cidr 10.1.0.0/16"
       register: output_kubeadm
     - name: instructions
-      debug: output="{{ output_kubeadm }}"
+      debug: msg="{{ output_kubeadm }}"
 
     - name: kubernetes config 1
       shell: "mkdir -p $HOME/.kube"
