@@ -174,15 +174,15 @@
       debug: msg="{{ output_kubeadm }}"
 
     - name: kubernetes config 1
-      shell: "mkdir -p $HOME/.kube"
+      shell: "mkdir .kube"
       args:
         chdir: /home/ansible
     - name: kubernetes config 2
-      shell: "cp -i /etc/kubernetes/admin.conf $HOME/.kube/config"
+      shell: "cp -i /etc/kubernetes/admin.conf /home/ansible/.kube/config"
       args:
         chdir: /home/ansible
     - name: kubernetes config 3
-      shell: "chown $(id -u):$(id -g) $HOME/.kube/config"
+      shell: "chown ansible:ansible /home/ansible/.kube/config"
       args:
         chdir: /home/ansible
 
