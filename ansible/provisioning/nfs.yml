@@ -55,10 +55,10 @@
       args:
         chdir: /home/ansible
 
-- hosts: all
+- hosts: workers
   become: yes
   tasks:
     - name: mount shared directory
-      shell: 'mount 10.0.1.15:/srv/nfs /srv/nfs'
+      shell: 'mount 10.0.1.10:/srv/nfs /srv/nfs'
       args:
         chdir: /home/ansible
