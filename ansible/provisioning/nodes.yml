@@ -167,5 +167,24 @@
       args:
         chdir: /home/ansible
 
-        
+    - name: kubeadm init
+      command: "kubeadm init --pod-network-cidr 10.1.0.0/16"
+      register: output_kubeadm
+    - name: instructions
+      debug: output="{{ output_kubeadm }}"
+
+    - name: kubernetes config 1
+      shell: "mkdir -p $HOME/.kube"
+      args:
+        chdir: /home/ansible
+    - name: kubernetes config 2
+      shell: "cp -i /etc/kubernetes/admin.conf $HOME/.kube/config"
+      args:
+        chdir: /home/ansible
+    - name: kubernetes config 3
+      shell: "chown $(id -u):$(id -g) $HOME/.kube/config"
+      args:
+        chdir: /home/ansible
+
+      
       
