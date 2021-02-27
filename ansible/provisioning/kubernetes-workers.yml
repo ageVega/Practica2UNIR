@@ -1,0 +1,15 @@
+- hosts: workers
+  become: yes
+  tasks:
+    - name: comando
+      prompt: Introduce una contraseña para generar el hash
+    - name: worker firewall 1
+      shell: "firewall-cmd --zone=public --permanent --add-rich-rule 'rule family=ipv4 source address=172.17.0.0/16 accept'"
+      args:
+        chdir: /home/ansible
+    - name: worker firewall 2
+      shell: 'firewall-cmd --reload'
+      args:
+        chdir: /home/ansible
+    - name: workers join cluter
+      command: "{{ comando }}"
