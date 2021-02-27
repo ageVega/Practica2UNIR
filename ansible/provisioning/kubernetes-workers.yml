@@ -16,9 +16,8 @@
         chdir: /home/ansible
 
     - name: install tigera
-      shell: "kubectl create -f https://docs.projectcalico.org/manifests/tigera-operator.yaml"
-      args:
-        chdir: /home/ansible
+      command: "kubectl create -f https://docs.projectcalico.org/manifests/tigera-operator.yaml"
+      
     - name: Upload calico.yaml to MV
       copy:
         src: ../files/custom-resources.yaml
