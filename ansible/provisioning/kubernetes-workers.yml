@@ -1,3 +1,22 @@
+- hosts: master
+  become: yes
+  tasks:
+    - name: install tigera
+      shell: "kubectl create -f https://docs.projectcalico.org/manifests/tigera-operator.yaml"
+      args:
+        chdir: /home/ansible
+    - name: Upload calico.yaml to MV
+      copy:
+        src: ../files/custom-resources.yaml
+        dest: /home/ansible/custom-resources.yaml
+        owner: ansible
+        group: ansible
+        mode: '0664'
+    - name: install calico
+      shell: "kubectl apply -f custom-resources.yaml"
+      args:
+        chdir: /home/ansible
+        
 - hosts: workers
   become: yes
   tasks:
