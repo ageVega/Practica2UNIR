@@ -1,18 +1,18 @@
 #!/bin/bash
 
-k delete ns/dev
+kubectlubectl delete ns/dev
 
 sleep 3
 
-k delete pv/pv0001
-k delete pv/pv0002
-k delete pv/pv0003
+kubectl delete pv/pv0001
+kubectl delete pv/pv0002
+kubectl delete pv/pv0003
 
 sleep 3
 
-k create -f yaml/pv.yaml
-k create -f yaml/ns-dev.yaml
+kubectl create -f yaml/pv.yaml
+kubectl create -f yaml/ns-dev.yaml
 
 sleep 3
 
-k create -f yaml/
+kubectl create -f yaml/
