@@ -36,8 +36,8 @@
         group: ansible
         mode: '0774'
 
-    - name: install calico
-      shell: "kubectl apply -f /home/ansible/custom-resources.yaml"
+    - name: install tigera & calico
+      shell: "./install_network.sh"
       args:
         chdir: /home/ansible
     
