@@ -13,10 +13,12 @@
         dest: /home/ansible/.kube/config
         remote_src: yes
         owner: "ansible"
-    - name: kubernetes config 3
-      shell: "chown ansible:ansible /home/ansible/.kube/config"
-      args:
-        chdir: /home/ansible
+    - name: change owner group .kube
+      file:
+        path: /home/ansible/.kube/config
+        owner: ansible
+        group: ansible
+        mode: "0770"
 
     - name: Upload calico.yaml to MV
       copy:
