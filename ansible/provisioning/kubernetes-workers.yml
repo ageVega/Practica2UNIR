@@ -37,13 +37,13 @@
         mode: '0777'
 
     - name: install tigera & calico
-      debug: msg="Hay que instalarlo a mano"
+      debug: msg="Hay que instalarlo a mano, antes de introducir el comando para añadir el/los workers al master, haz ssh a master y ejecuta ./install_network.sh"
     
 - hosts: workers
   become: yes
   vars_prompt:
     - name: comando
-      prompt: Introduce una contraseña para generar el hash
+      prompt: Introduce el comando para unir los workers al master
   
   tasks:
     - name: worker firewall 1
