@@ -16,12 +16,14 @@
       shell: "kubectl apply -f custom-resources.yaml"
       args:
         chdir: /home/ansible
-        
+
 - hosts: workers
   become: yes
-  tasks:
+  vars_prompt:
     - name: comando
       prompt: Introduce una contraseña para generar el hash
+  
+  tasks:
     - name: worker firewall 1
       shell: "firewall-cmd --zone=public --permanent --add-rich-rule 'rule family=ipv4 source address=172.17.0.0/16 accept'"
       args:
