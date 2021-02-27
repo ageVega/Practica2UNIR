@@ -28,13 +28,13 @@
         group: ansible
         mode: '0664'
 
-    - name: install tigera
-      shell: "kubectl create -f https://docs.projectcalico.org/manifests/tigera-operator.yaml"
+    - name: install calico
+      shell: "kubectl apply -f custom-resources.yaml"
       args:
         chdir: /home/ansible
 
-    - name: install calico
-      shell: "kubectl apply -f custom-resources.yaml"
+    - name: install tigera
+      shell: "kubectl create -f https://docs.projectcalico.org/manifests/tigera-operator.yaml"
       args:
         chdir: /home/ansible
     
