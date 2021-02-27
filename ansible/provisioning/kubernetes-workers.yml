@@ -1,6 +1,20 @@
 - hosts: master
   become: yes
   tasks:
+
+    - name: kubernetes config 1
+      shell: "mkdir -p /home/ansible/.kube"
+      args:
+        chdir: /home/ansible
+    - name: kubernetes config 2
+      shell: "cp -i /etc/kubernetes/admin.conf /home/ansible/.kube/config"
+      args:
+        chdir: /home/ansible
+    - name: kubernetes config 3
+      shell: "chown ansible:ansible /home/ansible/.kube/config"
+      args:
+        chdir: /home/ansible
+
     - name: install tigera
       shell: "kubectl create -f https://docs.projectcalico.org/manifests/tigera-operator.yaml"
       args:
@@ -16,21 +30,7 @@
       shell: "kubectl apply -f custom-resources.yaml"
       args:
         chdir: /home/ansible
-
-    - name: kubernetes config 1
-      shell: "mkdir -p /home/ansible/.kube"
-      args:
-        chdir: /home/ansible
-    - name: kubernetes config 2
-      shell: "cp -i /etc/kubernetes/admin.conf /home/ansible/.kube/config"
-      args:
-        chdir: /home/ansible
-    - name: kubernetes config 3
-      shell: "chown ansible:ansible /home/ansible/.kube/config"
-      args:
-        chdir: /home/ansible
     
-
 - hosts: workers
   become: yes
   vars_prompt:
