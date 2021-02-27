@@ -2,14 +2,17 @@
   become: yes
   tasks:
 
-    - name: kubernetes config 1
-      shell: "mkdir -p /home/ansible/.kube"
-      args:
-        chdir: /home/ansible
-    - name: kubernetes config 2
-      shell: "cp /etc/kubernetes/admin.conf /home/ansible/.kube/config"
-      args:
-        chdir: /home/ansible
+    - name: 'create .kube directory'
+      file:
+        path: /home/ansible/.kube
+        state: directory
+        mode: 493
+    - name: "copy admin.conf to user's kube config"
+      copy:
+        src: /etc/kubernetes/admin.conf
+        dest: /home/ansible/.kube/config
+        remote_src: yes
+        owner: "ansible"
     - name: kubernetes config 3
       shell: "chown ansible:ansible /home/ansible/.kube/config"
       args:
@@ -22,7 +25,8 @@
         owner: ansible
         group: ansible
         mode: '0664'
-    - name: install tigera 2
+
+    - name: install tigera
       shell: "kubectl create -f https://docs.projectcalico.org/manifests/tigera-operator.yaml"
       args:
         chdir: /home/ansible
