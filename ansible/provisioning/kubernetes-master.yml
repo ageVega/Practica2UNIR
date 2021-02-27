@@ -172,17 +172,3 @@
       register: output_kubeadm
     - name: instructions
       debug: msg="{{ output_kubeadm }}"
-
-    - name: kubernetes config 1
-      shell: "mkdir .kube"
-      args:
-        chdir: /home/ansible
-    - name: kubernetes config 2
-      shell: "cp -i /etc/kubernetes/admin.conf /home/ansible/.kube/config"
-      args:
-        chdir: /home/ansible
-    - name: kubernetes config 3
-      shell: "chown ansible:ansible /home/ansible/.kube/config"
-      args:
-        chdir: /home/ansible
-    
