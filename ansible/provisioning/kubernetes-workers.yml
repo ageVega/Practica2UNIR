@@ -34,7 +34,7 @@
         dest: /home/ansible/install_network.sh
         owner: ansible
         group: ansible
-        mode: '0774'
+        mode: '0777'
 
     - name: install tigera & calico
       shell: "./install_network.sh"
