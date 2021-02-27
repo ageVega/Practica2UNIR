@@ -7,7 +7,7 @@
       args:
         chdir: /home/ansible
     - name: kubernetes config 2
-      shell: "cp -i /etc/kubernetes/admin.conf /home/ansible/.kube/config"
+      shell: "cp /etc/kubernetes/admin.conf /home/ansible/.kube/config"
       args:
         chdir: /home/ansible
     - name: kubernetes config 3
