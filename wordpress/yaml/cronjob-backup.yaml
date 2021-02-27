@@ -1,0 +1,37 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: backup
+  namespace: dev
+spec:
+  schedule: "*/15 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: backup
+              image: bitnami/mariadb:10.3
+              volumeMounts:
+                - mountPath: /bitnami/backup
+                  name: mariadb-backup
+              envFrom: 
+                - configMapRef:
+                    name: mariadbenv
+                - secretRef:
+                    name: secretmariadb
+              env:
+                - name: MARIADB_HOST
+                  valueFrom:
+                    configMapKeyRef:
+                      name: wordpressenv
+                      key: MARIADB_HOST
+              args:
+                - /bin/sh
+                - -c
+                - mysqldump -h $MARIADB_HOST -u $MARIADB_USER -p${MARIADB_PASSWORD} $MARIADB_DATABASE > /bitnami/backup/backup-$$(date +%F).sql
+          volumes:
+            - name: mariadb-backup
+              persistentVolumeClaim:
+                claimName: mariadb-backup

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wordpressenv
+  namespace: dev
+data:
+  MARIADB_HOST: svc-mariadb
+  MARIADB_PORT_NUMBER: "3306"
+  WORDPRESS_DATABASE_USER: vega
+  WORDPRESS_DATABASE_NAME: bitnami

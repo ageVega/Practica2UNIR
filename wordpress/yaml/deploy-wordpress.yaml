@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress
+  namespace: dev
+  labels:
+    app: wordpress
+    tier: frontend
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: wordpress
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: wordpress
+        tier: frontend
+    spec:
+      containers:
+        - name: wordpress
+          image: bitnami/wordpress:5.3.1
+          volumeMounts:
+          - name: wordpress-data
+            mountPath: /bitnami/wordpress
+          envFrom: 
+            - configMapRef:
+                name: wordpressenv
+            - secretRef:
+                name: secretwordpress
+          livenessProbe:
+            httpGet:
+              path: /wp-login.php
+              port: wp
+            initialDelaySeconds: 10
+            timeoutSeconds: 10
+            periodSeconds: 10
+            failureThreshold: 6
+            successThreshold: 1
+          readinessProbe:
+            httpGet:
+              path: /wp-login.php
+              port: wp
+            initialDelaySeconds: 10
+            timeoutSeconds: 10
+            periodSeconds: 10
+            failureThreshold: 6
+            successThreshold: 1
+          ports:
+            - name: wp
+              containerPort: 80
+      volumes:
+        - name: wordpress-data
+          persistentVolumeClaim:
+            claimName: wordpress-data

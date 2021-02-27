@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mariadbenv
+  namespace: dev
+data:
+  MARIADB_DATABASE: bitnami
+  MARIADB_USER: vega

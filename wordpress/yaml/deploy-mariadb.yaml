@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mariadb
+  namespace: dev
+  labels:
+    app: mariadb
+    tier: backend
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: mariadb
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: mariadb
+        tier: backend
+    spec:
+      containers:
+        - name: mariadb-master
+          image: bitnami/mariadb:10.3
+          volumeMounts:
+            - mountPath: /bitnami/mariadb
+              name: mariadb-data
+          envFrom: 
+            - configMapRef:
+                name: mariadbenv
+            - secretRef:
+                name: secretmariadb
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - exec mysqladmin -uroot -p$MARIADB_ROOT_PASSWORD ping
+            failureThreshold: 6
+            initialDelaySeconds: 100
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 3
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - exec mysql -h 127.0.0.1 -uroot -p$MARIADB_ROOT_PASSWORD -e "SELECT 1;" $MARIADB_DATABASE
+            failureThreshold: 6
+            initialDelaySeconds: 20
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 3
+          ports:
+            - name: bbdd
+              containerPort: 3306
+      volumes:
+        - name: mariadb-data
+          persistentVolumeClaim:
+            claimName: mariadb-data

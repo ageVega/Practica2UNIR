@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: wp-ingress
+  namespace: dev
+  annotations:
+    nginx.ingress.kubernetes.io/affinity: cookie
+spec:
+  rules:
+    - host: wordpress.minikube.net
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: svc-wordpress
+              servicePort: 80
