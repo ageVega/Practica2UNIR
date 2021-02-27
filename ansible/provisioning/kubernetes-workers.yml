@@ -37,9 +37,7 @@
         mode: '0777'
 
     - name: install tigera & calico
-      shell: "source install_network.sh"
-      args:
-        chdir: /home/ansible
+      debug: msg="Hay que instalarlo a mano"
     
 - hosts: workers
   become: yes
