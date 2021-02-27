@@ -1,6 +1,6 @@
 #!/bin/bash
 
-kubectlubectl delete ns/dev
+kubectl delete ns/dev
 
 sleep 3
 
