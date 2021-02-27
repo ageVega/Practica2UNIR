@@ -56,6 +56,13 @@
       file:
         path: /srv/nfs
         state: directory
+    - name: Clone repository
+      shell: 'git clone https://github.com/ageVega/Practica2UNIR.git'
+      args:
+        chdir: /home/ansible
+
+
+        
 
 #Ejecutar como primer playbook con
 #$ ansible-playbook commontasks.yml -i hosts/inventory.ini
