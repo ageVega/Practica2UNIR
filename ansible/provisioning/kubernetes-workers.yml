@@ -20,11 +20,6 @@
         group: ansible
         mode: "0770"
 
-    - name: install tigera
-      shell: "kubectl create -f https://docs.projectcalico.org/manifests/tigera-operator.yaml"
-      args:
-        chdir: /home/ansible
-
     - name: Upload calico.yaml to MV
       copy:
         src: ../files/custom-resources.yaml
@@ -33,8 +28,16 @@
         group: ansible
         mode: '0664'
 
+    - name: Upload install_network.sh
+      copy:
+        src: ../files/install_network.sh
+        dest: /home/ansible/install_network.sh
+        owner: ansible
+        group: ansible
+        mode: '0774'
+
     - name: install calico
-      shell: "kubectl apply -f custom-resources.yaml"
+      shell: "kubectl apply -f /home/ansible/custom-resources.yaml"
       args:
         chdir: /home/ansible
     
