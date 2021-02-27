@@ -37,7 +37,7 @@
         mode: '0777'
 
     - name: install tigera & calico
-      shell: "./install_network.sh"
+      shell: "source install_network.sh"
       args:
         chdir: /home/ansible
     
